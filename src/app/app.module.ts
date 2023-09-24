@@ -14,6 +14,8 @@ import {HttpClientInMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./in-memory-data.service";
 import { HeroSearchComponent } from './hero-search/hero-search.component';
 import { ThreejsComponent } from './threejs/threejs.component';
+import { CubeComponent } from './threejs/cube/cube.component';
+import { IntexsoftComponent } from './threejs/intexsoft/intexsoft.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import { ThreejsComponent } from './threejs/threejs.component';
         MessagesComponent,
         DashboardComponent,
         HeroSearchComponent,
-        ThreejsComponent
+        ThreejsComponent,
+        CubeComponent,
+        IntexsoftComponent
     ],
     imports: [
         HttpClientModule,
