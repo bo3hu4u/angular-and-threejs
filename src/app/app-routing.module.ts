@@ -3,10 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import {HeroesComponent} from "./heroes/heroes.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {HeroDetailComponent} from "./hero-detail/hero-detail.component";
+import {ThreejsComponent} from "./threejs/threejs.component";
 
 const routes: Routes = [
   { path: 'heroes', component: HeroesComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'threejs', component: ThreejsComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }
 ];
