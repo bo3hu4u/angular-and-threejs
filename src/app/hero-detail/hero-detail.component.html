@@ -1,0 +1,14 @@
+<div *ngIf="selHero; else elseBlock">
+    <h2>{{selHero.name | uppercase}} Details</h2>
+    <div>id: {{selHero.id}}</div>
+    <div>
+        <label for="hero-name">Hero name: </label>
+        <input id="hero-name" [(ngModel)]="selHero.name" placeholder="name">
+    </div>
+    <button type="button"  (click)="concatHeroDetails(selHero)">
+      Concat hero details and show
+    </button>
+    <button type="button" (click)="save()">Save changes</button>
+    <button  *ngIf="isOnPage" type="button" (click)="goBack()">go back</button>
+</div>
+<ng-template #elseBlock>No one hero is selected</ng-template>

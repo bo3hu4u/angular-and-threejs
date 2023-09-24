@@ -1,0 +1,41 @@
+<h2>Your hero is '{{stubHero}}'</h2>
+<h3>
+    <div><span>id: </span>{{stubHero.id}}</div>
+    <div><span>name: </span>{{stubHero.name | uppercase | default_pref}}</div>
+    <div><span>alive: </span>{{stubHero.alive}}</div>
+</h3>
+<div>
+    <label for="name">Input name:</label>
+    <input id="name" [(ngModel)]="stubHero.name" placeholder="name">
+    <br>
+    <label for="alive">Input alive status:</label>
+    <input id="alive" type="checkbox" [(ngModel)]="stubHero.alive" placeholder="alive">
+</div>
+
+<div>
+    <label for="new-hero">Hero name: </label>
+    <input id="new-hero" #heroName/>
+
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button type="button" class="add-button" (click)="add(heroName.value); heroName.value=''">
+        Add hero
+    </button>
+</div>
+
+<h2>My Heroes</h2>
+<button type="button" class="add-button" (click)="newPageForHeroDetail = !newPageForHeroDetail">
+    {{newPageForHeroDetail ? "Disable" : "Enable"}} hero details on new page
+</button>
+<ul class="heroes">
+    <li *ngFor="let hero1 of heroes;index as ind">
+        <a [hidden]="!newPageForHeroDetail" routerLink="/detail/{{hero1.id}}">
+            <span class="badge">{{hero1.id}}</span> {{hero1.name}} - {{ind}}
+        </a>
+        <a [hidden]="newPageForHeroDetail" (click)="onSelect(hero1)" [class.selected]="hero1 === selectedHero">
+            <span class="badge">{{hero1.id}}</span> {{hero1.name}} - {{ind}}
+        </a>
+
+    </li>
+</ul>
+<app-hero-detail [selHero]="selectedHero" (concatHeroDetailsEvent)="showPopup($event)"></app-hero-detail>
+
