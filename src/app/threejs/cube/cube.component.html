@@ -7,35 +7,43 @@
                min="1" max="70" step="0.5"> <a>{{cameraFov.value}}</a>
     </div>
 
-    <div>
-        <label for="box-height">Box Height: </label>
-        <input id="box-height" type="range" #boxHeight (input)="this.cube.scale.y = +boxHeight.value"
-               min="1" max="5" step="0.2"> <a>{{boxHeight.value}}</a>
-    </div>
-    <div>
-        <label for="box-width">Box width: </label>
-        <input id="box-width" type="range" #boxWidth (input)="this.cube.scale.x = +boxWidth.value"
-               min="1" max="5" step="0.2"> <a>{{boxWidth.value}}</a>
-    </div>
-    <div>
-        <label for="box-depth">Box depth: </label>
-        <input id="box-depth" type="range" #boxDepth (input)="this.cube.scale.z = +boxDepth.value"
-               min="1" max="5" step="0.2"> <a>{{boxDepth.value}}</a>
-    </div>
+    <ng-container *ngTemplateOutlet="cubeScaleTemplate; context:{coordinate: 'x'}">
+    </ng-container>
+    <ng-container *ngTemplateOutlet="cubeScaleTemplate; context:{coordinate: 'y'}">
+    </ng-container>
+    <ng-container *ngTemplateOutlet="cubeScaleTemplate; context:{coordinate: 'z'}">
+    </ng-container>
 
-    <div>
-        <label for="speed-x">speed-x: </label>
-        <input id="speed-x" type="range" #speedX (input)="this.timeSpeedX = +speedX.value"
-               min="0.001" max="1" step="0.001"> <a>{{speedX.value}}</a>
-    </div>
-    <div>
-        <label for="speed-y">speed-y: </label>
-        <input id="speed-y" type="range" #speedY (input)="this.timeSpeedY = +speedY.value"
-               min="0.001" max="1" step="0.001"> <a>{{speedY.value}}</a>
-    </div>
-    <div>
-        <label for="speed-z">speed-z: </label>
-        <input id="speed-z" type="range" #speedZ (input)="this.timeSpeedZ = +speedZ.value"
-               min="0.001" max="1" step="0.001"> <a>{{speedZ.value}}</a>
-    </div>
+    <ng-container *ngTemplateOutlet="timeSpeedTemplate; context:{coordinate: 'x'}">
+    </ng-container>
+    <ng-container *ngTemplateOutlet="timeSpeedTemplate; context:{coordinate: 'y'}">
+    </ng-container>
+    <ng-container *ngTemplateOutlet="timeSpeedTemplate; context:{coordinate: 'z'}">
+    </ng-container>
 </div>
+
+<ng-template #cubeScaleTemplate let-coordinate="coordinate">
+    <ng-container *ngTemplateOutlet="rangeTemplate; context:{setValFunc: changeCubeScale(),
+     coordinate, min:1, max: 5, step: 0.2}">
+    </ng-container>
+</ng-template>
+
+<ng-template #timeSpeedTemplate let-coordinate="coordinate">
+    <ng-container *ngTemplateOutlet="rangeTemplate; context:{setValFunc: changeTimeSpeed(),
+     coordinate, min:0.001, max: 1, step: 0.001}">
+    </ng-container>
+</ng-template>
+
+<ng-template #rangeTemplate
+             let-setValFunc="setValFunc"
+             let-coordinate="coordinate"
+             let-min="min"
+             let-max="max"
+             let-step="step"
+>
+    <div>
+        <label for="box-attr-input">{{setValFunc.name}} {{coordinate | uppercase}}: </label>
+        <input id="box-attr-input" type="range" #templateInput (input)="setValFunc(coordinate,+templateInput.value)"
+               min="{{min}}" max="{{max}}" step="{{step}}"> <a>{{templateInput.value}}</a>
+    </div>
+</ng-template>

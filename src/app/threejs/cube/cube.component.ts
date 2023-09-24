@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import * as THREE from "three";
 import {Color} from "three/src/math/Color";
+import {Vector3} from "three";
 
 @Component({
     selector: 'app-cube',
@@ -22,6 +23,29 @@ export class CubeComponent implements OnChanges {
 
     ngOnChanges(): void {
         this.drawCube();
+    }
+
+    //TODO: разобраться, какая-то магия. просто через динамический доступ к свойству не выходило
+    setValGeneric<T, K extends keyof T>(obj: T, key: K, newVal: number): void {
+        obj[key] = <T[K]>newVal;
+    }
+
+    changeTimeSpeed(): Function {
+        const changeTimeSpeedOn = (coordinate: string, newVal: number) => {
+            console.log(`coordinate: ${coordinate} - val: ${newVal} and this: ${this}`)
+            this.setValGeneric(this, `timeSpeed${coordinate.toUpperCase()}` as keyof CubeComponent, newVal)
+        };
+        return changeTimeSpeedOn;
+    }
+
+    changeCubeScale(): Function {
+        const changeCubeScaleOn = (coordinate: string, newVal: number) => {
+            console.log(`coordinate: ${coordinate} - val: ${newVal} and this: ${this}`)
+            this.setValGeneric(this.cube.scale, `${coordinate}` as keyof Vector3, newVal)
+            //TODO: тут ругается при попытке через имя получить свойство. а если сделать через keyof то ругается,
+            // что isVector read only...
+        };
+        return changeCubeScaleOn;
     }
 
     drawCube() {
