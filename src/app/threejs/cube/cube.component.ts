@@ -72,6 +72,7 @@ export class CubeComponent implements OnChanges {
                 this.cube.rotation.z = time * this.timeSpeedZ;
 
                 renderer.render(scene, this.camera);
+                renderer.setPixelRatio(4);
             })
         })
     }
